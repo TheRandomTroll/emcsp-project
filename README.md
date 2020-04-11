@@ -17,7 +17,7 @@ The following dependencies must be installed in order to be able to run this sys
 ## Downloading and running the application
 Since the program is written in Python, it doesn't require any build procedures. Ensure the above-mentioned dependencies are installed and run the following commands in the Pi's terminal:
 ```console
-    git clone https://github.com/TheRandomTroll/emcsp-project
-	cd emcsp-project
-    python main.py --left-relay {LEFT_RELAY_PIN} --right-relay {RIGHT_RELAY_PIN}
+$ git clone https://github.com/TheRandomTroll/emcsp-project
+$ cd emcsp-project
+$ python main.py --left-relay {LEFT_RELAY_PIN} --right-relay {RIGHT_RELAY_PIN}
 ```
