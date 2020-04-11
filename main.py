@@ -8,7 +8,10 @@ import cv2
 import enum
 import imutils
 import numpy as np
+import os
 import picamera
+import RPi.GPIO as GPIO
+import sys
 
 def enum(**enums):
     return type("Enum", (), enums)
@@ -98,6 +101,11 @@ def determine_light_position(bright_spots):
 
 
 def main():
+    left_relay = 20
+    right_relay = 21
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(left_relay, GPIO.OUT)
+    GPIO.setup(right_relay, GPIO.OUT)
     ap = argparse.ArgumentParser()
 
     ap.add_argument("-s", "--sensitivity", required=False,help="number of pixels required to be considered a \"bright spot\"", default=300, type=float)
@@ -122,15 +130,37 @@ def main():
 
         light_position = determine_light_position(bright_spots)
         print(light_position)
+        if light_position == LightPosition.none:
+            GPIO.output(left_relay, True)
+            GPIO.output(right_relay, True)
+        elif light_position == LightPosition.left:
+            GPIO.output(left_relay, False)
+            GPIO.output(right_relay, True)
+        elif light_position == LightPosition.right:
+            GPIO.output(left_relay, True)
+            GPIO.output(right_relay, False)
+        else:
+            GPIO.output(left_relay, False)
+            GPIO.output(right_relay, False)
+
 
         cv2.namedWindow("Frame")
         cv2.moveWindow("Frame", 40, 30)
         cv2.imshow("Frame", image)
 
-        key = cv2.waitKey(1) & 0xFF
-
         raw_capture.truncate(0)
+
+        key = cv2.waitKey(1) & 0xFF
         if key == ord("q"):
             break
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('Interrupted')
+        GPIO.cleanup()
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)
