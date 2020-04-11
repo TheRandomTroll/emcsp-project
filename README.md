@@ -1,12 +1,10 @@
 # Automatic beam light system using Raspberry Pi
 This is a project realized for the **embedded microcomputer systems programming** course at my school. It is an automatic beam light system for a car, using **OpenCV** for light detection and **Raspberry Pi** for GPIO control.
 ## Table of contents
-* [Automatic beam light system using Raspberry Pi](#automatic-beam-light-system-using-raspberry-pi)
-    * [Table of contents](#table-of-contents)
-    * [Hardware requirements](#hardware-requirements)
-    * [Software dependencies](#software-dependencies)
-    * [Downloading and running the application](#downloading-and-running-the-application)
-        * [Command-line arguments](#command-line-arguments)
+* [Hardware requirements](#hardware-requirements)
+* [Software dependencies](#software-dependencies)
+* [Downloading and running the application](#downloading-and-running-the-application)
+    * [Command-line arguments](#command-line-arguments)
 
 
 ## Hardware requirements
