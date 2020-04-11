@@ -101,19 +101,21 @@ def determine_light_position(bright_spots):
 
 
 def main():
-    left_relay = 20
-    right_relay = 21
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(left_relay, GPIO.OUT)
-    GPIO.setup(right_relay, GPIO.OUT)
     ap = argparse.ArgumentParser()
 
+    ap.add_argument("-lr", "--left-relay", required=True, help="left relay GPIO pin", type=int)
+    ap.add_argument("-rr", "--right-relay", required=True, help="right relay GPIO pin", type=int)
     ap.add_argument("-s", "--sensitivity", required=False,help="number of pixels required to be considered a \"bright spot\"", default=300, type=float)
     ap.add_argument("-t", "--threshold", required=False,help="how bright a pixel has to be to be considered \"bright\"", default=200, type=int)
-
     args = ap.parse_args()
     sensitivity = args.sensitivity
     threshold = args.threshold
+
+    left_relay = args.left_relay
+    right_relay = args.right_relay
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(left_relay, GPIO.OUT)
+    GPIO.setup(right_relay, GPIO.OUT)
     camera = PiCamera()
     camera.resolution = (640, 480)
     camera.framerate = 32
